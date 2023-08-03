@@ -1,6 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import { Construct } from 'constructs';
+import { KeyPair } from 'cdk-ec2-key-pair';
 import { readFileSync } from 'fs';
 
 export class EC2Construct extends Construct {
@@ -8,7 +9,26 @@ export class EC2Construct extends Construct {
     super(scope, id);
 
     const vpc = new ec2.Vpc(this, 'ec2Vpc', {
-      maxAzs: 1
+      ipAddresses: ec2.IpAddresses.cidr('10.0.137.0/24'),
+      vpcName: 'musifyre-vpc',
+      subnetConfiguration: [
+        {
+          name: 'musifyrePublicVpc',
+          subnetType: ec2.SubnetType.PUBLIC,
+          cidrMask: 28,
+          mapPublicIpOnLaunch: true
+        }
+      ]
+    });
+
+    const key = new KeyPair(this, 'A-Key-Pair', {
+      name: 'musifyre-kp',
+      description: 'This is a Key Pair',
+      storePublicKey: true // by default the public key will not be stored in Secrets Manager
+    });
+
+    const publicSubnet = vpc.selectSubnets({
+      subnetType: ec2.SubnetType.PUBLIC
     });
 
     const securityGroup = new ec2.SecurityGroup(this, 'ec2Sg', {
@@ -39,7 +59,11 @@ export class EC2Construct extends Construct {
         ec2.InstanceSize.MICRO // instance type
       ),
       machineImage: machineImage,
-      securityGroup: securityGroup
+      securityGroup: securityGroup,
+      associatePublicIpAddress: true,
+      vpcSubnets: publicSubnet,
+      detailedMonitoring: true,
+      keyName: key.keyPairName
     });
 
     const userData = readFileSync('data/instance-init.sh', 'utf8');
