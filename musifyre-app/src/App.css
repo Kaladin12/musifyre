@@ -1,0 +1,92 @@
+@font-face {
+  font-family: 'Kristy';
+  src: url('../fonts/kirsty_bd.otf');
+}
+
+.App {
+  min-height: 100vh;
+  text-align: center;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -40px;
+}
+
+.Logo {
+  position:relative;
+  top:90px;
+  font-size: calc(100px + 2vmin);
+  font-family: 'Kristy', sans-serif;
+  color: black;
+  line-height: calc(60px + 2vmin);
+} 
+
+.Login-space {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: calc(20px + 2vmin);
+  font-style: italic;
+  color: black;
+}
+
+.new-room {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: calc(12px + 2vmin);
+  font-style: italic;
+  color: black;
+}
+
+#logInput::placeholder{
+  color:gray;
+  opacity: 50%;
+}
+
+.Rooms-space{
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.cover {
+  display: flex;
+  background-color: white;
+  border-color: white;
+  border: 0;
+}
+
+#Login{
+  background-color: #ee7219;
+}
+
+#Create{
+  background-color: #bc4b86;
+}
+
+input, .but{
+  height:50px;
+  width:420px;
+  margin-bottom: 10px;  
+}
+
+.sucessAlert {
+  font-size: larger;
+  width: 80%;
+  height: 12%;
+  background-color: rgba(0, 200, 0, 1);
+  z-index: 1000 ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 44%;
+  left: 10%;
+  right: 10%;
+  font-size: calc(12px + 2vmin);
+  font-style: italic;
+  color: black;
+}
