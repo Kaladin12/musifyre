@@ -10,17 +10,37 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: -40px;
+  margin-top: 50px;
 }
 
 .Logo {
-  position:relative;
-  top:90px;
+  position: relative;
+  top:auto;
   font-size: calc(100px + 2vmin);
   font-family: 'Kristy', sans-serif;
   color: black;
   line-height: calc(60px + 2vmin);
 } 
+
+.HomeLogo{
+  position:relative;
+  top:90px;
+  margin-bottom: 150px;
+  font-size: calc(100px + 2vmin);
+  font-family: 'Kristy', sans-serif;
+  color: black;
+  line-height: calc(60px + 2vmin);
+}
+
+.RoomLogo{
+  position:relative;
+  top:90px;
+  margin-bottom: 160px;
+  font-size: calc(100px + 2vmin);
+  font-family: 'Kristy', sans-serif;
+  color: black;
+  line-height: calc(60px + 2vmin);
+}
 
 .Login-space {
   display: flex;
@@ -29,6 +49,7 @@
   font-size: calc(20px + 2vmin);
   font-style: italic;
   color: black;
+  margin-top: 5%;
 }
 
 .new-room {
@@ -47,9 +68,31 @@
 
 .Rooms-space{
   display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
+  position: relative;
+  flex-direction: row;
   flex-wrap: wrap;
+}
+
+.RoomsCover{
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+}
+
+.QueueDisplay{
+  padding: 20px;
+  min-width: 300px;
+  max-width: 470px;
+  max-height: 240px;
+  margin-left: 10px;
+  text-align: left;
+  overflow: auto;
+}
+
+.QueueListTitle{
+  text-align: center;
+  font-weight: bolder;
 }
 
 .cover {
@@ -59,13 +102,74 @@
   border: 0;
 }
 
+
 #Login{
   background-color: #ee7219;
 }
 
 #Create{
   background-color: #bc4b86;
+  width: 430px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
 }
+
+#LoginBut{
+  background-color: #000000;
+  width: 50%;
+}
+
+.roomDisplayName{
+  font-family: 'Liberation Sans', sans-serif;
+  font-style: italic;
+  font-size: larger;
+}
+
+.prev{
+  position: relative;
+  width: 4.4vw;
+  height: 19vh;
+  right: 53%;
+  bottom: 340px;
+  border: none;
+  background-color: #49434d;
+}
+
+.next{
+  position: relative;
+  width: 4.4vw;
+  height: 19vh;
+  left: 53%;
+  bottom: 340px;
+  border: none;
+  background-color: #49434d;
+}
+
+.prev:hover, .next:hover{
+  opacity: 65%;
+  cursor: pointer;
+}
+
+.Arrow-right{
+  display: flex;
+  height: 65%;
+  width: 100%;
+  filter: invert(100%);
+}
+
+.Arrow-left{
+  display: flex;
+  height: 65%;
+  width: 100%;
+  -moz-transform: scale(-1, -1);
+  -o-transform: scale(-1, -1);
+  -webkit-transform: scale(-1, -1);
+  transform: scale(-1, -1);
+  filter: invert(100%);
+}
+
 
 input, .but{
   height:50px;
@@ -89,4 +193,24 @@ input, .but{
   font-size: calc(12px + 2vmin);
   font-style: italic;
   color: black;
+}
+
+
+.createRoomButtonContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#FileInput {
+  width: 240px;
+  height: 40px;
+  padding-left: 50px;
+}
+
+#name{
+  text-align: center;
+  font-size: calc(12px + 1vmin);
+  margin-bottom: 70px;
 }
