@@ -24,7 +24,7 @@ export class EC2Construct extends Construct {
     const key = new KeyPair(this, 'A-Key-Pair', {
       name: 'musifyre-kp',
       description: 'This is a Key Pair',
-      storePublicKey: true // by default the public key will not be stored in Secrets Manager
+      storePublicKey: true
     });
 
     const publicSubnet = vpc.selectSubnets({
