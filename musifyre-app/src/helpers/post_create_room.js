@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const PostCreateRoom = async (name) => {
-    const CREATE_ROOM_URL = 'https://3qdiu2w7k9.execute-api.us-east-1.amazonaws.com/dev1_0/rooms/create-rooms'
+    const CREATE_ROOM_URL = 'https://2bwumm67ac.execute-api.us-east-1.amazonaws.com/dev/rooms/create-rooms'
     const body = {
         name: name,
     };

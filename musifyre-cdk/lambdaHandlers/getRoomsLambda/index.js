@@ -1,12 +1,13 @@
-import { DynamoDB } from 'aws-sdk';
-const dynamodb = new DynamoDB.DocumentClient();
+const AWS = require('aws-sdk')
+const { v4: uuidv4 } = require('uuid');
+const dynamodb = new AWS.DynamoDB.DocumentClient();
 
 const CORS_HEADERS = {
     "Access-Control-Allow-Origin" : "*", // Permitimos requests de todos los orgienes
     "Access-Control-Allow-Credentials" : true // En caso de que usemos HTTPS
 }
 
-export async function handler(event, context) {
+exports.handler = async (event) => {
     console.log(event)
     // el tamaño de la paginacion se define por medio del querystring
     const pageSize = event.queryStringParameters.size;

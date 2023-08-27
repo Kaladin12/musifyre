@@ -15,7 +15,7 @@ const Home = (props) => {
   const [previous, setPrevious] = useState([])
   const getRooms = async (first=true, to_the_right = true) => {
     console.log("GETTING ROOMS with", size, last);
-    let URL = `https://3qdiu2w7k9.execute-api.us-east-1.amazonaws.com/dev1_0/rooms?size=${size}`;
+    let URL = `https://2bwumm67ac.execute-api.us-east-1.amazonaws.com/dev/rooms?size=${size}`;
     if ( first === false && last !== null) {
       URL += `&last=${last}`;
     }

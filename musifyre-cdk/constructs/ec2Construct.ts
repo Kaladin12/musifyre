@@ -4,8 +4,12 @@ import { Construct } from 'constructs';
 import { KeyPair } from 'cdk-ec2-key-pair';
 import { readFileSync } from 'fs';
 
+interface ec2Props {
+  s3Arn: string;
+}
+
 export class EC2Construct extends Construct {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props: ec2Props) {
     super(scope, id);
 
     const vpc = new ec2.Vpc(this, 'ec2Vpc', {
@@ -52,6 +56,25 @@ export class EC2Construct extends Construct {
       'us-east-1': 'ami-06db4d78cb1d3bbf9'
     });
 
+    const instanceRole = new cdk.aws_iam.Role(this, 'musifyreInstanceRole', {
+      assumedBy: new cdk.aws_iam.ServicePrincipal('ec2.amazonaws.com')
+    });
+
+    instanceRole.addToPolicy(
+      new cdk.aws_iam.PolicyStatement({
+        actions: ['s3:PutObject', 's3:GetObject'],
+        resources: [props.s3Arn] // Replace with your bucket name
+      })
+    );
+
+    const instanceProfile = new cdk.aws_iam.CfnInstanceProfile(
+      this,
+      'InstanceProfile',
+      {
+        roles: [instanceRole.roleName]
+      }
+    );
+
     const ec2Instance = new ec2.Instance(this, 'musifyreEC2', {
       vpc,
       instanceType: ec2.InstanceType.of(
@@ -63,7 +86,8 @@ export class EC2Construct extends Construct {
       associatePublicIpAddress: true,
       vpcSubnets: publicSubnet,
       detailedMonitoring: true,
-      keyName: key.keyPairName
+      keyName: key.keyPairName,
+      role: instanceRole
     });
 
     const userData = readFileSync('data/instance-init.sh', 'utf8');

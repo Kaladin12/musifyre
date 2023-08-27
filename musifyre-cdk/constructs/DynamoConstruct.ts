@@ -15,7 +15,7 @@ export class DynamoConstruct extends Construct {
     this.roomsTable = new dynamodb.Table(this, props.tableName, {
       tableName: props.tableName,
       partitionKey: {
-        name: 'roomId',
+        name: 'id',
         type: dynamodb.AttributeType.STRING
       },
       removalPolicy: cdk.RemovalPolicy.DESTROY

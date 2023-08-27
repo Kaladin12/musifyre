@@ -148,7 +148,7 @@ const Home = (props) => {
   const [closedWhy, setClosedWhy] = useState(false)
   const [fileOnTheFly, setFileOnTheFly] = useState(false)
  
-  const URL_ROOM = `https://3qdiu2w7k9.execute-api.us-east-1.amazonaws.com/dev1_0/rooms/${roomId}`;
+  const URL_ROOM = `https://2bwumm67ac.execute-api.us-east-1.amazonaws.com/dev/rooms/${roomId}`;
 
   console.log('ID?', roomId)
 

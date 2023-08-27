@@ -3,7 +3,7 @@ import axios from 'axios'
 const Presigned = async (file, room) => {
   // recibimos el archivo (un objeto de tipo File) como parametro
   console.log(file)
-  // funcion auxiliar para subir la imagen, espera el url obtenido con el sdk y el archivo cargado
+  // funcion auxiliar para subir la cancion, espera el url obtenido con el sdk y el archivo cargado
   const uploadImageToS3 = async (presignedUrl, file) => {
     console.log('SENDING TO', presignedUrl)
     // Hacemos un put al URL enviando el archivo y estableciendo el tipo de archivo que se está enviando
@@ -30,7 +30,7 @@ const Presigned = async (file, room) => {
     //JSON.parse( JSON.stringify( file.name.replace(/\s/g,'') )
     const filename = decodeURI(file.name.replace(/\s/g,''))
 
-    const URL = `https://3qdiu2w7k9.execute-api.us-east-1.amazonaws.com/dev1_0/sign_upload?file=${filename}&type=${file.type}&id=${room}`
+    const URL = `https://2bwumm67ac.execute-api.us-east-1.amazonaws.com/dev/sign_upload?file=${filename}&type=${file.type}&id=${room}`
     // realizamos un get al apigateway
     let res = await axios.get(URL)
       .then(async (response) => {
