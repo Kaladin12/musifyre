@@ -8,7 +8,7 @@ import path = require('path');
 interface lambdaConstructProps {
   tableName: string;
   tableArn: string;
-  mp3BucketName: string; // Will pass these as env variables for the lambdas
+  mp3BucketName: string; // Will pass these as env variables for the lambda
   hlsBucketName: string;
 }
 
