@@ -18,13 +18,16 @@ export class S3Construct extends Construct {
       allowedMethods: [
         s3.HttpMethods.GET,
         s3.HttpMethods.PUT,
-        s3.HttpMethods.POST
+        s3.HttpMethods.POST,
+        s3.HttpMethods.HEAD
       ],
-      allowedOrigins: ['*']
+      allowedOrigins: ['*'],
+      allowedHeaders: ['*']
     };
 
     this.mp3Bucket = new s3.Bucket(this, props.mp3BucketName, {
       publicReadAccess: true,
+
       bucketName: props.mp3BucketName,
       cors: [corsRule],
       autoDeleteObjects: true,

@@ -54,8 +54,8 @@ export class LambdaConstruct extends Construct {
       id: 'getS3PresignedUrl',
       dirPath: 'getPresignedUrlLambda',
       policies: {
-        actions: ['s3:GetObject'],
-        resources: [props.mp3BucketName]
+        actions: ['s3:GetObject', 's3:PutObject', 's3:PutObjectAcl'],
+        resources: [props.mp3BucketName + '/*']
       }
     });
 

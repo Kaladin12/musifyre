@@ -1,5 +1,5 @@
 const AWS = require('aws-sdk')
-const s3 = new AWS.S3()
+const s3 = new AWS.S3({signatureVersion: 'v4'})
    
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin" : "*", // Permitimos requests de todos los orgienes
@@ -23,7 +23,7 @@ exports.handler = async function(event, context) {
     Bucket: bucketName,
     Key: objectKeyPrefix + `${filename}`,
     ContentType: filetype,
-    Expires: expirationTime
+    Expires: expirationTime,
   };
   // Hacemos uso del método getSignedUrl del sdk para obtener un URL que nos permita hacer PUT al
   // bucket de forma directa

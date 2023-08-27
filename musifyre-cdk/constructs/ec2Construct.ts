@@ -62,8 +62,9 @@ export class EC2Construct extends Construct {
 
     instanceRole.addToPolicy(
       new cdk.aws_iam.PolicyStatement({
-        actions: ['s3:PutObject', 's3:GetObject'],
-        resources: [props.s3Arn] // Replace with your bucket name
+        effect: cdk.aws_iam.Effect.ALLOW,
+        actions: ['s3:PutObject', 's3:GetObject', 's3:PutObjectAcl'],
+        resources: [props.s3Arn + '/*'] // Replace with your bucket name
       })
     );
 
