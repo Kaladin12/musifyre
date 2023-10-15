@@ -7,7 +7,7 @@ import SongPlayer from "./HLSPlayer";
 import Alert from 'react-bootstrap/Alert';
 import { useParams } from "react-router-dom";
 
-const webSocketURL = 'wss://anmdb0lugf.execute-api.us-east-1.amazonaws.com/dev';
+const webSocketURL = 'wss://04bs6ogzh8.execute-api.us-east-1.amazonaws.com/dev';
 let socket = null;
 let tm = null;
 let roomId = null;

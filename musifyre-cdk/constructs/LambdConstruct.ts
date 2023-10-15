@@ -4,6 +4,7 @@ import { Construct } from 'constructs';
 import { resourceProps } from './ApiGaetwayConstruct';
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 import path = require('path');
+import { WebSocketApi, WebSocketStage } from '@aws-cdk/aws-apigatewayv2-alpha';
 
 interface lambdaConstructProps {
   tableName: string;
@@ -28,6 +29,7 @@ type lambdaFunctionType = {
 export class LambdaConstruct extends Construct {
   public functionsMap = new Map<string, NodejsFunction>();
   public lambdasToResourceMap = new Map<string, resourceProps>();
+  public rtLambdasToResourceMap = new Map<string, NodejsFunction>();
 
   constructor(scope: Construct, id: string, props: lambdaConstructProps) {
     super(scope, id);
@@ -55,7 +57,23 @@ export class LambdaConstruct extends Construct {
       dirPath: 'getPresignedUrlLambda',
       policies: {
         actions: ['s3:GetObject', 's3:PutObject', 's3:PutObjectAcl'],
-        resources: [props.mp3BucketName + '/*']
+        resources: [props.mp3BucketName + '/*'] // Duhhh, the wildcard
+      }
+    });
+    functionsDataMap.set('getRoomLambda', {
+      id: 'getRoomLambda',
+      dirPath: 'getRoomLambda',
+      policies: {
+        actions: ['dynamodb:Query'],
+        resources: [props.tableArn]
+      }
+    });
+    functionsDataMap.set('joinRoomRtLambda', {
+      id: 'joinRoomRtLambda',
+      dirPath: 'joinRtLambda',
+      policies: {
+        actions: ['dynamodb:UpdateItem'],
+        resources: [props.tableArn]
       }
     });
 
@@ -64,6 +82,10 @@ export class LambdaConstruct extends Construct {
       if (value.policies) {
         this.attachPolicies(temp, value.policies);
       }
+      if (key.includes('RtLambda')) {
+        this.rtLambdasToResourceMap.set(key, temp);
+      }
+
       this.functionsMap.set(key, temp);
     });
 
@@ -120,6 +142,14 @@ export class LambdaConstruct extends Construct {
         'method.request.querystring.type': true,
         'method.request.querystring.id': true
       }
+    });
+    const getRoomLambda = this.getMapObjectAsNodeFunction('getRoomLambda');
+    this.lambdasToResourceMap.set(getRoomLambda.functionName, {
+      lambdaFunction: getRoomLambda,
+      method: 'GET',
+      parentResource: '/rooms',
+      resource: '{id}',
+      authorizationType: cdk.aws_apigateway.AuthorizationType.NONE
     });
   }
 

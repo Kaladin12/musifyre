@@ -4,6 +4,9 @@ import {
   aws_lambda as lambda
 } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
+import { WebSocketLambdaIntegration } from '@aws-cdk/aws-apigatewayv2-integrations-alpha';
+import { WebSocketApi, WebSocketStage } from '@aws-cdk/aws-apigatewayv2-alpha';
+import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 
 interface MusifyreApiProps {
   apiName: string;
@@ -21,6 +24,8 @@ export interface resourceProps {
 
 export class MusifyreApiGateway extends Construct {
   public musifyreRestApi: apigateway.RestApi;
+  public musifyreWebsocketApi: WebSocketApi;
+  public musifyreWebsocketStage: WebSocketStage;
 
   constructor(scope: Construct, id: string, props: MusifyreApiProps) {
     super(scope, id);
@@ -44,8 +49,22 @@ export class MusifyreApiGateway extends Construct {
       restApiName: props.apiName
     });
 
+    this.musifyreWebsocketApi = new WebSocketApi(this, 'musifyreWSApi', {
+      apiName: 'musifyre-rt'
+    });
+
+    this.musifyreWebsocketStage = new WebSocketStage(this, 'musifyreWSStage', {
+      webSocketApi: this.musifyreWebsocketApi,
+      stageName: 'dev',
+      autoDeploy: true
+    });
+
     new cdk.CfnOutput(this, 'musifyreApiUrl', {
       value: this.musifyreRestApi.url
+    });
+
+    new cdk.CfnOutput(this, 'musifyreRtApiUrl', {
+      value: this.musifyreWebsocketApi.apiEndpoint
     });
   }
 
@@ -71,6 +90,14 @@ export class MusifyreApiGateway extends Construct {
             : undefined
         }
       );
+    });
+  }
+
+  public createWebsocketRouteForLambda(lambdas: Map<string, NodejsFunction>) {
+    lambdas.forEach((value: NodejsFunction, key: string) => {
+      this.musifyreWebsocketApi.addRoute('joinroom', {
+        integration: new WebSocketLambdaIntegration('testInt', value)
+      });
     });
   }
 }

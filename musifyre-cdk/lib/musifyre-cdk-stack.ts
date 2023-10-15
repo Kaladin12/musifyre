@@ -48,5 +48,6 @@ export class MusifyreCdkStack extends cdk.Stack {
 
     // create the resource for each lambda
     apis.createResourceForLambda(lambdas.lambdasToResourceMap);
+    apis.createWebsocketRouteForLambda(lambdas.rtLambdasToResourceMap);
   }
 }
