@@ -1,0 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CODESTAR_CONNECTION_ARN = void 0;
+exports.CODESTAR_CONNECTION_ARN = 'arn:aws:codestar-connections:us-east-1:423929911942:connection/1440cadb-91c6-4da7-8b01-23086f246a6e';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7QUFBYSxRQUFBLHVCQUF1QixHQUNsQyxxR0FBcUcsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBjb25zdCBDT0RFU1RBUl9DT05ORUNUSU9OX0FSTiA9XG4gICdhcm46YXdzOmNvZGVzdGFyLWNvbm5lY3Rpb25zOnVzLWVhc3QtMTo0MjM5Mjk5MTE5NDI6Y29ubmVjdGlvbi8xNDQwY2FkYi05MWM2LTRkYTctOGIwMS0yMzA4NmYyNDZhNmUnO1xuIl19
