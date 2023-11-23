@@ -2,6 +2,7 @@ import { Stack, StackProps } from 'aws-cdk-lib';
 import * as codepipeline from 'aws-cdk-lib/pipelines';
 import { Construct } from 'constructs';
 import { CODESTAR_CONNECTION_ARN } from '../constants';
+import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
 
 export class MusifyreCodePipeline extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -11,6 +12,18 @@ export class MusifyreCodePipeline extends Stack {
       pipelineName: 'musifyre-pipeline',
       selfMutation: false,
       synth: new codepipeline.CodeBuildStep('synthStep', {
+        rolePolicyStatements: [
+          new PolicyStatement({
+            actions: ['codeartifact:*'],
+            resources: ['*'],
+            effect: Effect.ALLOW
+          }),
+          new PolicyStatement({
+            actions: ['sts:GetServiceBearerToken'],
+            resources: ['*'],
+            effect: Effect.ALLOW
+          })
+        ],
         input: codepipeline.CodePipelineSource.connection(
           'Kaladin12/musifyre',
           'main',
