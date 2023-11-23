@@ -9,6 +9,7 @@ export class MusifyreCodePipeline extends Stack {
 
     const pipeline = new codepipeline.CodePipeline(this, 'MysifyrePipeline', {
       pipelineName: 'musifyre-pipeline',
+      selfMutation: false,
       synth: new codepipeline.CodeBuildStep('synthStep', {
         input: codepipeline.CodePipelineSource.connection(
           'Kaladin12/musifyre',
@@ -18,7 +19,7 @@ export class MusifyreCodePipeline extends Stack {
           }
         ),
         installCommands: ['cd musifyre-cdk', 'npm install -g aws-cdk'],
-        commands: ['npm ci', 'npm run build', 'npx cdk synth'],
+        commands: ['npm ci', 'npm run build', 'npx cdk synth', 'npm publish'],
         primaryOutputDirectory: 'musifyre-cdk/cdk.out'
       })
     });

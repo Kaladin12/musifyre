@@ -8,7 +8,9 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "co:login": "aws codeartifact login --tool npm --repository elian-test --domain elian",
+    "prepare": "npm run co:login"
   },
   "devDependencies": {
     "@types/jest": "^29.5.3",
