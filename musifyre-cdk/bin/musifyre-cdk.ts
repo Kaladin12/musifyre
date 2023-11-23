@@ -6,8 +6,10 @@ import { MusifyreCodePipeline as MusifyreCodePipelineStack } from '../lib/pipeli
 
 const envParams = {
   account: process.env.CDK_DEFAULT_ACCOUNT,
-  region: process.env.CDK_DEFAULT_REGION
+  region: 'us-east-1'
 };
+
+console.log(JSON.stringify(envParams));
 
 const app = new cdk.App();
 /*

@@ -18,7 +18,8 @@ export class MusifyreCodePipeline extends Stack {
           }
         ),
         installCommands: ['cd musifyre-cdk', 'npm install -g aws-cdk'],
-        commands: ['npm ci', 'npm run build', 'npx cdk synth']
+        commands: ['npm ci', 'npm run build', 'npx cdk synth'],
+        primaryOutputDirectory: 'musifyre-cdk/cdk.out'
       })
     });
   }
