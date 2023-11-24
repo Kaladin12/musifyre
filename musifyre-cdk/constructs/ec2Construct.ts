@@ -91,7 +91,7 @@ export class EC2Construct extends Construct {
       role: instanceRole
     });
 
-    const userData = readFileSync('data/instance-init.sh', 'utf8');
+    const userData = readFileSync('../data/instance-init.sh', 'utf8');
     ec2Instance.addUserData(userData);
   }
 }
