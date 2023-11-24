@@ -31,7 +31,7 @@ export class MusifyreCodePipeline extends Stack {
             connectionArn: CODESTAR_CONNECTION_ARN
           }
         ),
-        installCommands: ['cd musifyre-cdk', 'npm install -g aws-cdk'],
+        installCommands: ['ls', 'cd musifyre-cdk', 'npm install -g aws-cdk'],
         commands: ['npm ci', 'npm run build', 'npx cdk synth', 'npm publish'],
         primaryOutputDirectory: 'musifyre-cdk/cdk.out'
       })
