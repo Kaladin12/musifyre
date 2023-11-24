@@ -3,6 +3,7 @@ import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import { Construct } from 'constructs';
 import { KeyPair } from 'cdk-ec2-key-pair';
 import { readFileSync } from 'fs';
+import path = require('path');
 
 interface ec2Props {
   s3Arn: string;
@@ -91,7 +92,8 @@ export class EC2Construct extends Construct {
       role: instanceRole
     });
 
-    const userData = readFileSync('../data/instance-init.sh', 'utf8');
+    const filePath = path.join(__dirname, '../data/instance-init.sh');
+    const userData = readFileSync(filePath, 'utf8');
     ec2Instance.addUserData(userData);
   }
 }
