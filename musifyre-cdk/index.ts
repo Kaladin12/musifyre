@@ -1,2 +1,3 @@
-import { MusifyreCdkStack } from './lib/musifyre-cdk-stack';  
-export { MusifyreCdkStack };
+import { MusifyreCdkStack } from './lib/musifyre-cdk-stack';
+import { MyusifyreLambdaTestStack } from './lib/integ-tests';
+export { MusifyreCdkStack, MyusifyreLambdaTestStack };
